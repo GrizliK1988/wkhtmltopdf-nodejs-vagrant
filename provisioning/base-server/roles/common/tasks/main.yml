@@ -1,0 +1,50 @@
+# Run the equivalent of "apt-get update" as a separate step
+- name: APT update cache
+  apt: update_cache=yes
+
+# Update all packages to the latest version
+- name: APT Upgrade
+  apt: upgrade=dist
+  
+- name: Add nfs common   
+  apt: update_cache=yes
+  apt: pkg=nfs-common state=present
+
+- name: Install git
+  apt: pkg=git-core state=present
+
+- name: Install nodejs
+  apt: pkg=nodejs state=present
+
+- name: Install fontconfig
+  apt: pkg=fontconfig state=present
+
+- name: Install libjpeg-turbo8
+  apt: pkg=libjpeg-turbo8 state=present
+
+- name: Install xfonts-75dpi
+  apt: pkg=xfonts-75dpi state=present
+
+- name: Install ghostscript
+  apt: pkg=ghostscript state=present
+
+- name: Download wkhtmltopdf
+  get_url: url=http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb dest=/tmp
+
+- name: Install wkhtmltopdf
+  shell: dpkg -i /tmp/wkhtmltox-0.12.2_linux-trusty-amd64.deb creates=/etc/default/wkhtmltox
+
+- name: Create pdf directory
+  shell: mkdir -p /tmp/pdf
+
+- name: Chmod pdf directory
+  shell: chmod -R 777 /tmp/pdf
+
+- name: Create pdf directory
+  shell: mkdir -p /app/wkhtmltopdf-server
+
+- name: Install xvfb
+  apt: pkg=xvfb state=present
+
+- name: Update cache
+  apt: update_cache=yes

@@ -1,0 +1,9 @@
+---
+- hosts: default
+  vars:
+    use_inhouse_mirror: False
+  user: vagrant
+  sudo: True
+  roles:
+  - common
+
